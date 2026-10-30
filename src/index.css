@@ -1,0 +1,265 @@
+@import "tailwindcss";
+
+/*
+ * Design system: refined, European-influenced editorial luxury over Moroccan imagery.
+ * Near-black + cool neutrals + one sage hairline accent, sharp corners, photography-led.
+ * NOTE: never add @theme spacing tokens named xs/sm/md/lg/xl — they override max-w-* sizes.
+ */
+@theme {
+  --font-display: "Playfair Display", Georgia, serif; /* hero display */
+  --font-serif: "Libre Baskerville", Georgia, serif; /* section display */
+  --font-sans: "Montserrat", Helvetica, Arial, sans-serif; /* body & UI */
+  --font-impact: Impact, "Anton", "Arial Narrow", "Arial Black", sans-serif; /* buttons */
+
+  /* Palette */
+  --color-night: #131516; /* primary — text, CTAs, footer */
+  --color-mist: #f2f3f5; /* canvas — soft page background */
+  --color-sage: #6e8458; /* hairline — borders, outlines, dividers */
+  --color-sage-ink: #55683e; /* sage tuned for AA text on white/mist */
+  --color-sage-light: #b4c3a0; /* sage tuned for AA text on near-black */
+  --color-slate: #212934; /* decorative dark */
+  --color-graphite: #212326; /* decorative dark / card hover */
+
+  --animate-marquee: marquee 52s linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-mist);
+  color: var(--color-night);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.72;
+  letter-spacing: 0.27px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@layer components {
+/* ---------- Typography ---------- */
+
+.type-display-xl {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 4.4vw, 4.875rem); /* → 78px */
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.015em; /* ≈ -1.17px at 78px */
+}
+
+.type-display {
+  font-family: var(--font-serif);
+  font-size: clamp(1.85rem, 3vw, 2.75rem); /* 40–48px range */
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+.type-heading {
+  font-family: var(--font-sans);
+  font-size: clamp(1.3rem, 1.8vw, 1.625rem);
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.type-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.type-body-xl {
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0.27px;
+}
+
+.type-body-lg {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.72;
+  letter-spacing: 0.27px;
+}
+
+.type-body-md {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.72;
+  letter-spacing: 0.27px;
+}
+
+.type-caption {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.72;
+  letter-spacing: 0.27px;
+}
+
+/* ---------- Buttons: Impact, uppercase, 1px outline, sharp ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 47px;
+  padding: 13px 29px;
+  border: 1px solid transparent;
+  border-radius: 0;
+  font-family: var(--font-impact);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: opacity 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+}
+.btn:hover {
+  opacity: 0.6;
+}
+.btn:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* Sage hairline outline — for light surfaces */
+.btn-outline {
+  border-color: var(--color-sage);
+  color: var(--color-sage-ink);
+  background-color: transparent;
+}
+
+/* White outline — for photography / dark bands */
+.btn-outline-light {
+  border-color: rgba(255, 255, 255, 0.85);
+  color: #ffffff;
+  background-color: transparent;
+}
+
+/* Solid near-black — primary submit action */
+.btn-solid {
+  border-color: var(--color-night);
+  background-color: var(--color-night);
+  color: #ffffff;
+}
+
+/* Square translucent icon button (measured: rgba(19,21,22,0.7), white) */
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0;
+  background-color: rgba(19, 21, 22, 0.7);
+  color: #ffffff;
+  transition: opacity 0.25s ease;
+}
+.btn-icon:hover {
+  opacity: 0.6;
+}
+.btn-icon:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+}
+
+/* ---------- Surfaces & gradients ---------- */
+
+@utility gradient-white-mist {
+  background-image: linear-gradient(#ffffff 0%, var(--color-mist) 100%);
+}
+
+@utility gradient-mist-white {
+  background-image: linear-gradient(var(--color-mist) 0%, #ffffff 100%);
+}
+
+@utility gradient-photo {
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
+}
+
+@utility shadow-soft {
+  box-shadow: rgba(20, 22, 23, 0.09) 0px 0px 6px 0px;
+}
+
+::selection {
+  background: var(--color-night);
+  color: #ffffff;
+}
+
+@layer components {
+/* ---------- Form fields: white, 1px sage hairline, 0 radius ---------- */
+
+.field {
+  width: 100%;
+  min-height: 48px;
+  background-color: #ffffff;
+  border: 1px solid var(--color-sage);
+  border-radius: 0;
+  padding: 12px 16px;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0;
+  color: var(--color-night);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  color-scheme: light;
+}
+.field::placeholder {
+  color: #6c6f71;
+}
+.field:focus {
+  border-color: var(--color-night);
+  box-shadow: 0 0 0 1px var(--color-night);
+}
+.field-error {
+  border-color: #9b3b2e;
+  box-shadow: 0 0 0 1px #9b3b2e;
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 6px;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0;
+  color: var(--color-night);
+}
+
+select.field {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23131516' stroke-width='1.6' stroke-linecap='square'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.6rem;
+}
+
+input[type="date"].field::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.6;
+}
+}
